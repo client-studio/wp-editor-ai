@@ -1,2 +1,2 @@
-# wp-editor-ai
+# WP Editor AI
 Add OpenAI to Wordpress Classic Editor
