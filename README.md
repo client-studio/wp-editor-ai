@@ -5,6 +5,8 @@ Fairly experimental Wordpress plugin that adds AI writer button to the Classic E
 
 The Finnish mode settings:
 
-Tone: Clear and concise. Straightforward. Neutral and professional.
+Tone: 
+clear and concise, straightforward, neutral and professional.
 
-Avoid: Adverbs, and adverbial phrases, unnecessary adjectives, embellishments or flowery descriptions, over-enthusiastic expressions like 'amazing,' 'fantastic,' or excessive positivity
+Avoid: 
+adverbs, and adverbial phrases, unnecessary adjectives, embellishments or flowery descriptions, over-enthusiastic expressions like 'amazing,' 'fantastic,' or excessive positivity.
