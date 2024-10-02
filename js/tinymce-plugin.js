@@ -155,11 +155,25 @@ tinymce.PluginManager.add('editor_ai_button', function(editor, url) {
     });
 
     function enhanceTextWithAI(text, callback) {
-        var apiKey = editoraiSettings.openai_api_key;
-        var tone = editoraiSettings.tone;
-        var brandVoice = editoraiSettings.brand_voice;
-        var language = editoraiSettings.language;
-        var model = editoraiSettings.model;
+        // Check if editorAISettings is defined
+        if (typeof editorAISettings === 'undefined') {
+            callback({ error: 'Editor AI settings are not defined. Please check your configuration.' });
+            return;
+        }
+
+        var apiKey = editorAISettings.openai_api_key;
+        var tone = editorAISettings.tone;
+        var brandVoice = editorAISettings.brand_voice;
+        var language = editorAISettings.language;
+        var model = editorAISettings.model;
+        var blacklist = editorAISettings.blacklist;
+        var temperature = editorAISettings.temperature;
+
+        // Check if required settings are available
+        if (!apiKey || !tone || !brandVoice || !language || !model || temperature === undefined) {
+            callback({ error: 'One or more required AI settings are missing. Please check your configuration.' });
+            return;
+        }
 
         var data = {
             model: model,

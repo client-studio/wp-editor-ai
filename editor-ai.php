@@ -44,6 +44,7 @@ function editor_ai_register_settings() {
     register_setting('editor_ai_settings', 'editor_ai_brand_voice');
     register_setting('editor_ai_settings', 'editor_ai_model');
     register_setting('editor_ai_settings', 'editor_ai_blacklist');
+    register_setting('editor_ai_settings', 'editor_ai_temperature');
     
     add_settings_section('editor_ai_main_section', 'Main Settings', null, 'editor_ai_settings');
     add_settings_field('editor_ai_tone', 'Tone of Voice', 'editor_ai_tone_callback', 'editor_ai_settings', 'editor_ai_main_section');
@@ -51,6 +52,7 @@ function editor_ai_register_settings() {
     add_settings_field('editor_ai_brand_voice', 'Brand Voice', 'editor_ai_brand_voice_callback', 'editor_ai_settings', 'editor_ai_main_section');
     add_settings_field('editor_ai_model', 'AI Model', 'editor_ai_model_callback', 'editor_ai_settings', 'editor_ai_main_section');
     add_settings_field('editor_ai_blacklist', 'Blacklist words', 'editor_ai_blacklist_callback', 'editor_ai_settings', 'editor_ai_main_section');
+    add_settings_field('editor_ai_temperature', 'AI Creativity', 'editor_ai_temperature_callback', 'editor_ai_settings', 'editor_ai_main_section');
 }
 add_action('admin_init', 'editor_ai_register_settings');
 
@@ -96,7 +98,24 @@ function editor_ai_model_callback() {
 function editor_ai_blacklist_callback() {
     $blacklist = get_option('editor_ai_blacklist', '');
     echo "<textarea name='editor_ai_blacklist' rows='3' cols='50' class='large-text'>" . esc_textarea($blacklist) . "</textarea>";
-    echo "<p class='description'>Enter words to avoid, separated by commas.</p>";
+    echo "<p class='description'>Tell the AI what to avoid in the text.</p>";
+}
+
+// Temperature field callback
+function editor_ai_temperature_callback() {
+    $temperature = get_option('editor_ai_temperature', '0.7');
+    ?>
+    <input type="range" name="editor_ai_temperature" min="0.2" max="0.8" step="0.1" value="<?php echo esc_attr($temperature); ?>" class="editor-ai-range">
+    <span class="editor-ai-range-value"><?php echo esc_html($temperature); ?></span>
+    <p class="description">Adjust the AI's creativity level. Lower values (towards 0.2) produce more focused and deterministic outputs, while higher values (towards 0.8) produce more varied and creative results.</p>
+    <script>
+    jQuery(document).ready(function($) {
+        $('.editor-ai-range').on('input', function() {
+            $(this).next('.editor-ai-range-value').text($(this).val());
+        });
+    });
+    </script>
+    <?php
 }
 
 // Add to editor_AI_register_settings function
@@ -118,13 +137,14 @@ function editor_ai_localize_script() {
     // Convert locale to a language code that OpenAI can understand
     $language = substr($locale, 0, 2); // This gets the first two characters, e.g., 'en' from 'en_US'
 
-    wp_localize_script('editor-ai-js', 'editoraiSettings', array(
+    wp_localize_script('editor-ai-js', 'editorAISettings', array(
         'openai_api_key' => get_option('editor_ai_openai_api_key', ''),
         'tone' => get_option('editor_ai_tone', 'neutral'),
         'brand_voice' => get_option('editor_ai_brand_voice', ''),
         'language' => $language,
         'model' => get_option('editor_ai_model', 'gpt-3.5-turbo'), // Add the model to the localized script
         'blacklist' => get_option('editor_ai_blacklist', ''),
+        'temperature' => get_option('editor_ai_temperature', '0.7'),
     ));
 }
 add_action('admin_enqueue_scripts', 'editor_ai_localize_script');

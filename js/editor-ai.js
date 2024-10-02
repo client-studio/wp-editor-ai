@@ -6,6 +6,7 @@
         const brandVoice = editorAISettings.brand_voice;
         const model = editorAISettings.model;
         const blacklist = editorAISettings.blacklist;
+        const temperature = parseFloat(editorAISettings.temperature);
 
         if (!apiKey) {
             alert('Please set your OpenAI API key in the plugin settings.');
@@ -13,7 +14,7 @@
         }
 
         const blacklistPrompt = blacklist 
-            ? `\n\nAvoid using the following words: ${blacklist}.` 
+            ? `\n\nAvoid using the following: ${blacklist}.` 
             : '';
 
         const prompt = `Given the following text, provide subtle alternatives and corrections. Adjust the tone to be ${tone} and align with this brand voice description: "${brandVoice}"${blacklistPrompt}\n\nText to enhance:\n${text}`;
@@ -33,7 +34,7 @@
                     ],
                     max_tokens: 150,
                     n: 1,
-                    temperature: 0.7,
+                    temperature: temperature, // Use the temperature from settings
                 })
             });
 
