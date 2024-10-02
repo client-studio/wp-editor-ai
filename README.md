@@ -2,3 +2,9 @@
 Add OpenAI to Wordpress Classic Editor
 
 Fairly experimental Wordpress plugin that adds AI writer button to the Classic Editor. It generates three alternative versions of any selected text and has various options to fine-tune the tone of voice.
+
+The Finnish mode settings:
+
+Tone: Clear and concise. Straightforward. Neutral and professional.
+
+Avoid: Adverbs, and adverbial phrases, unnecessary adjectives, embellishments or flowery descriptions, over-enthusiastic expressions like 'amazing,' 'fantastic,' or excessive positivity
