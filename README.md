@@ -10,3 +10,5 @@ clear and concise, straightforward, neutral and professional.
 
 Avoid: 
 adverbs, and adverbial phrases, unnecessary adjectives, embellishments or flowery descriptions, over-enthusiastic expressions like 'amazing,' 'fantastic,' or excessive positivity.
+
+Sharing is caring. Tell us your best prompts.
